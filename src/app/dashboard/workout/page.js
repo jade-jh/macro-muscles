@@ -1,13 +1,59 @@
+'use client';
+import { useState } from 'react';
+
+
 function WorkoutLogPage() {
+    // State to manage the selected exercise and custom exercise input
+    const [selectedExercise, setSelectedExercise] = useState('');
+    const [customExercise, setCustomExercise] = useState('');
     return (
-      <div className="min-h-screen flex flex-col items-center py-8 bg-[#f4e8de]"> {/* Adjusted background color for consistency */}
-        <h2 className="text-2xl font-bold text-[#736558] mb-4">Workout Log</h2> {/* Adjusted text color for consistency */}
+      <div className="min-h-screen flex flex-col items-center py-8 bg-[#f4e8de]"> 
+        <h2 className="text-2xl font-bold text-[#736558] mb-4">Workout Log</h2> 
   
         <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
           <form className="space-y-4">
+          <div>
+            <label htmlFor="exercise" className="text-gray-700 font-semibold">Exercise</label>
+            <select 
+                id="exercise" 
+                value={selectedExercise}
+                onChange={(e) => {
+                    setSelectedExercise(e.target.value);
+                    if (e.target.value !== "Other") {
+                        setCustomExercise('');
+                    }
+                }}
+                className="mt-1 w-full p-2 border border-gray-300 rounded-md"
+            >
+                <option value="">Select Exercise</option>
+                <option value="Running">Running</option>
+                <option value="Cycling">Cycling</option>
+                <option value="Swimming">Swimming</option>
+                <option value="Strength training">Strength training</option>
+                <option value="Yoga">Yoga</option>
+                <option value="Boxing">Boxing</option>
+                <option value="Dance">Dance</option>
+                <option value="Ball">Ball</option>
+                {/* Add more predefined options here */}
+                <option value="Other">Other</option>
+            </select>
+              {selectedExercise === 'Other' && (
+                  <input 
+                      type="text" 
+                      value={customExercise}
+                      onChange={(e) => setCustomExercise(e.target.value)}
+                      placeholder="Type of exercise" 
+                      className="mt-1 w-full p-2 border border-gray-300 rounded-md" 
+                  />
+              )}
+            </div>
             <div>
-              <label htmlFor="exercise" className="text-gray-700 font-semibold">Exercise</label>
-              <input type="text" id="exercise" placeholder="Type of exercise" className="mt-1 w-full p-2 border border-gray-300 rounded-md" />
+              <label htmlFor="intensity" className="text-gray-700 font-semibold">Intensity</label>
+              <select id="intensity" className="mt-1 w-full p-2 border border-gray-300 rounded-md">
+                  <option value="Light">Light</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="Intense">Intense</option>
+              </select>
             </div>
             <div>
               <label htmlFor="duration" className="text-gray-700 font-semibold">Duration (minutes)</label>
