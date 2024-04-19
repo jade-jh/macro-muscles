@@ -8,7 +8,7 @@ function MealLogPage() {
   const [mealNotes, setMealNotes] = useState('');
   const [foodItems, setFoodItems] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log('Meal Category:', mealCategory);
@@ -16,7 +16,30 @@ function MealLogPage() {
     console.log('Meal Date:', mealDate);
     console.log('Meal Notes:', mealNotes);
     console.log('Food Items:', foodItems);
-  };
+
+    try {
+      const response = await fetch('/api/submit-meal', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({mealCategory, calories, mealDate, mealNotes})
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to log meal');
+      }
+      
+      // Clear input fields after submission
+      setMealCategory('');
+      setCalories('');
+      setMealDate('');
+      setMealNotes('');
+      
+      // fetchMealEntries();
+    } catch (error) {
+        console.error('Error logging meal: ', error);
+        setError('Failed to log meal.');
+      }
+    };
 
   const addFoodItem = () => {
     const newFoodItem = {
