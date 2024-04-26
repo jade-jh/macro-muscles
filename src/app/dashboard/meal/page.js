@@ -36,10 +36,10 @@ function MealLogPage() {
       
       // fetchMealEntries();
     } catch (error) {
-        console.error('Error logging meal: ', error);
-        setError('Failed to log meal.');
-      }
-    };
+      console.error('Error logging meal: ', error);
+      setError('Failed to log meal.');
+    }
+  };
 
   const addFoodItem = () => {
     const newFoodItem = {
@@ -51,10 +51,31 @@ function MealLogPage() {
     setFoodItems([...foodItems, newFoodItem]);
   };
 
+  const calculateCaloriesForItem = async (index) => {
+    const query = foodItems[index].amount + " " + foodItems[index].name;
+    const result = await fetch(`/api/calculate-calories?query=${query}`);
+    const data = await result.json();
+    handleFoodItemChange(index, 'calories', data.calories);
+  }
+
+  const calculateTotalCalories = () => {
+    let totalCalories = 0;
+    foodItems.forEach((item) => {
+      totalCalories += Number(item.calories);
+    });
+    setCalories(totalCalories);
+  }
+
   const handleFoodItemChange = (index, field, value) => {
     const updatedFoodItems = [...foodItems];
     updatedFoodItems[index][field] = value;
     setFoodItems(updatedFoodItems);
+    if (field === 'name' || field === 'amount') {
+      void calculateCaloriesForItem(index);
+    }
+    if (field === 'calories') {
+      void calculateTotalCalories();
+    }
   };
 
   const removeFoodItem = (index) => {
@@ -67,7 +88,7 @@ function MealLogPage() {
     <div className="min-h-screen flex flex-col items-center py-8 bg-[#f4e8de]">
       <h2 className="text-2xl font-bold text-[#736558] mb-4">Meal Log</h2>
 
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+      <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6">
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="mealCategory" className="text-gray-700 font-semibold">
@@ -101,8 +122,8 @@ function MealLogPage() {
                     className="flex-1 p-2 border border-gray-300 rounded-md"
                   />
                   <input
-                    type="number"
-                    placeholder="Amount"
+                    type="text"
+                    placeholder="100g"
                     value={item.amount}
                     onChange={(e) => handleFoodItemChange(index, 'amount', e.target.value)}
                     className="w-24 p-2 border border-gray-300 rounded-md"
@@ -150,6 +171,7 @@ function MealLogPage() {
               Calories
             </label>
             <input
+              disabled
               type="number"
               id="calories"
               placeholder="Estimated calories"
