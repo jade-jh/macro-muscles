@@ -7,6 +7,7 @@ function MealLogPage() {
   const [mealDate, setMealDate] = useState('');
   const [mealNotes, setMealNotes] = useState('');
   const [foodItems, setFoodItems] = useState([]);
+  const [entries, setEntries] = useState([]); // State to hold all entries
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -21,20 +22,29 @@ function MealLogPage() {
       const response = await fetch('/api/submit-meal', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({mealCategory, calories, mealDate, mealNotes})
+        body: JSON.stringify({mealCategory, foodItems, calories, mealDate, mealNotes})
       });
       
       if (!response.ok) {
         throw new Error('Failed to log meal');
       }
+
+      const newEntry = {
+        mealCategory,
+        calories,
+        mealDate,
+        mealNotes,
+        foodItems
+      };
+
+      setEntries([...entries, newEntry]);
       
       // Clear input fields after submission
       setMealCategory('');
       setCalories('');
       setMealDate('');
       setMealNotes('');
-      
-      // fetchMealEntries();
+      setFoodItems([]);
     } catch (error) {
       console.error('Error logging meal: ', error);
       setError('Failed to log meal.');
@@ -83,6 +93,25 @@ function MealLogPage() {
     updatedFoodItems.splice(index, 1);
     setFoodItems(updatedFoodItems);
   };
+
+  const formatNewEntry = () => (
+    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+      <h4 className="text-gray-800 font-semibold">{mealCategory}</h4>
+      <p className="text-gray-600">Calories: {calories}</p>
+      <p className="text-gray-600">Date: {mealDate}</p>
+      <p className="text-gray-600">Notes: {mealNotes}</p>
+      <div className="mt-2">
+        {foodItems.map((foodItem, i) => (
+          <div key={i} className="flex items-center gap-4">
+            <p className="text-gray-600">Food Name: {foodItem.name}</p>
+            <p className="text-gray-600">Amount: {foodItem.amount}</p>
+            <p className="text-gray-600">Category: {foodItem.category}</p>
+            <p className="text-gray-600">Calories: {foodItem.calories}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen flex flex-col items-center py-8 bg-[#f4e8de]">
@@ -226,6 +255,24 @@ function MealLogPage() {
           <p className="text-gray-600">Notes: Felt energized after eating.</p>
         </div>
         {/* Repeat for more entries */}
+      {entries.map((entry, index) => (
+        <div key={index} className="bg-white rounded-lg shadow-md p-4 mb-4">
+          <h4 className="text-gray-800 font-semibold">{entry.mealCategory}</h4>
+          <p className="text-gray-600">Calories: {entry.calories}</p>
+          <p className="text-gray-600">Date: {entry.mealDate}</p>
+          <p className="text-gray-600">Notes: {entry.mealNotes}</p>
+          <div className="mt-2">
+            {entry.foodItems.map((foodItem, i) => (
+              <div key={i} className="flex items-center gap-4">
+                <p className="text-gray-600">Food Name: {foodItem.name}</p>
+                <p className="text-gray-600">Amount: {foodItem.amount}</p>
+                <p className="text-gray-600">Category: {foodItem.category}</p>
+                <p className="text-gray-600">Calories: {foodItem.calories}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
       </div>
     </div>
   );
