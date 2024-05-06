@@ -1,21 +1,29 @@
-import { SignJWT } from "jose";
 import { NextResponse } from "next/server";
-import { getJwtSecretKey } from "@/libs/auth";
-import { connectToDatabase } from './mongodb';
+import { connectToDatabase } from '../../dashboard/mongodb.js';
 
 export async function POST(request) {
   const body = await request.json();
-  console.log("POST", body);
-  if (body.username != null && body.password != null) {
-    const db = await connectToDatabase();
+    const { username, password, dob, height, weight } = body;
+  if (username != null && password != null) {
+    const client = await connectToDatabase();
+    const db = client.db();
     const usersCollection = db.collection('users');
 
     const newUser = {
-        username: body.username,
-        password: body.password
+        username,
+        password,
+        dob,
+        height,
+        weight
     };
 
     try {
+        const existing = usersCollection.findOne({username:username}).then(result => {
+            if(result) {
+              console.log('Username already exists');
+              throw('Username already exists');
+            } 
+          });
         const result = await usersCollection.insertOne(newUser);
         console.log('User registered successfully:', result.insertedId);
         const response = NextResponse.json(

@@ -12,7 +12,7 @@ export const Header = () => {
             Macro Muscles
         </div>
         <div className="grow" />
-        {pathname != '/login' ? 
+        {pathname != '/login' && pathname != '/register' ? 
             <div>
             <Link href="/api/logout" passHref>
                 <button className="w-full px-4 py-2 bg-[#715f4e] text-[#f4e8de] rounded-lg hover:bg-[#5d4b40]">Logout</button>

@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from 'next/link'; // Import Link from Next.js
 
-const LoginComponent = () => {
+const RegisterComponent = () => {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [dob, setDob] = useState('');
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
   // const { setUser } = useUser(); // Use the global state management
   const [error, setError] = useState(''); // Optional: state for handling errors
 
@@ -15,19 +17,19 @@ const LoginComponent = () => {
     e.preventDefault();
     try {
       // replace this with an actual API call to your backend to verify the user's credentials.
-      const response = await fetch("/api/login", {
+      const response = await fetch("/api/register", {
         method: "POST",
         body: JSON.stringify({ username, password }),
       });
       if (response.ok) {
         // setUser({ name: username });
-        router.push('/'); // Redirect to dashboard upon successful login
+        router.push('/login'); 
       } else {
-        setError('Invalid username or password'); // Handle login error
+        setError('Could not register. Please try again.'); // Handle login error
       }
     } catch (err) {
       console.error(err); // Log error for debugging
-      setError('Login failed. Please try again later.'); // Display a generic login error
+      setError('Could not register. Please try again.'); 
     }
   };
 
@@ -48,8 +50,34 @@ const LoginComponent = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg text-[#715f4e] bg-white focus:outline-none focus:ring-2 focus:ring-[#f2e4d1]"
         />
+            <label htmlFor="dob" className="text-gray-700 font-semibold">
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              id="dob"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+              placeholder="DOB"
+              className="mt-1 w-full p-2 border border-gray-300 rounded-md"
+            />
+          <input
+          type="text"
+          placeholder="height cm"
+          value={height}
+          onChange={(e) => setHeight(e.target.value)}
+          className="w-full px-4 py-2 border rounded-lg text-[#715f4e] bg-white focus:outline-none focus:ring-2 focus:ring-[#f2e4d1]"
+        />
+        <input
+          type="text"
+          placeholder="weight kg"
+          value={weight}
+          onChange={(e) => setWeight(e.target.value)}
+          className="w-full px-4 py-2 border rounded-lg text-[#715f4e] bg-white focus:outline-none focus:ring-2 focus:ring-[#f2e4d1]"
+        />
+
         <button type="submit" className="w-full px-4 py-2 bg-[#715f4e] text-[#f4e8de] rounded-lg hover:bg-[#5d4b40]">
-          Log In
+          Register
         </button>
         {error && <p className="text-[#f26b1e] text-sm">{error}</p>} {/* Optionally display login error */}
       </form>
@@ -60,22 +88,9 @@ const LoginComponent = () => {
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-between p-24">
-      <h1 className="text-6xl font-bold text-white italic drop-shadow-2xl">Welcome to Macro Muscles</h1>
-      <section className="flex-1 my-12">
-        <p className="text-xl text-center font-bold text-[#736558] italic">
-        Embarking on a health journey can often feel intimidating, especially for beginners who are navigating the complexities of workout routines and nutritional balance.
-        Our app aims to simplify wellness by making personal health management easier and more accessible than ever.  
-        Start, track, visualize your progress and get recommendation to achieve your wellness goals with us—where simplicity meets functionality. 
-        Join us, and let's embark on this journey together, where every step forward is a step towards a healthier, happier you.
-        </p>
-        {/* You can add more content here */}
-      </section>
+      <h1 className="text-6xl font-bold text-white italic drop-shadow-2xl">Register new account</h1>
       <section className="flex-1">
-        <LoginComponent />
-      </section>
-      <section className="flex-1 text-white italic 2xl">Register <Link href="/register" passHref>
-          here
-        </Link>!
+        <RegisterComponent />
       </section>
     </main>
   );
