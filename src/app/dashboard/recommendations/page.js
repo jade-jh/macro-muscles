@@ -1,6 +1,6 @@
+// pages/recommendation.js
 'use client';
 import { useState } from 'react';
-
 export default function Recommendation() {
     const [muscle, setMuscle] = useState('');
     const [query, setQuery] = useState('');
@@ -43,7 +43,7 @@ export default function Recommendation() {
 
     return (
         <div className="min-h-screen flex flex-col items-center py-8 bg-[#f4e8de]">
-            <h1 className="text-6xl font-bold text-white italic drop-shadow-2xl mb-8">Get Recommendations</h1>
+            <h1 className="text-6xl font-bold text-gray-700 italic drop-shadow-2xl mb-8">Get Recommendations</h1>
             <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6 mb-8">
                 <div className="space-y-4">
                     <div>
