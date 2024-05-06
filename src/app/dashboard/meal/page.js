@@ -94,25 +94,6 @@ function MealLogPage() {
     setFoodItems(updatedFoodItems);
   };
 
-  const formatNewEntry = () => (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-      <h4 className="text-gray-800 font-semibold">{mealCategory}</h4>
-      <p className="text-gray-600">Calories: {calories}</p>
-      <p className="text-gray-600">Date: {mealDate}</p>
-      <p className="text-gray-600">Notes: {mealNotes}</p>
-      <div className="mt-2">
-        {foodItems.map((foodItem, i) => (
-          <div key={i} className="flex items-center gap-4">
-            <p className="text-gray-600">Food Name: {foodItem.name}</p>
-            <p className="text-gray-600">Amount: {foodItem.amount}</p>
-            <p className="text-gray-600">Category: {foodItem.category}</p>
-            <p className="text-gray-600">Calories: {foodItem.calories}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
   return (
     <div className="min-h-screen flex flex-col items-center py-8 bg-[#f4e8de]">
       <h2 className="text-2xl font-bold text-[#736558] mb-4">Meal Log</h2>
