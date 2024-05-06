@@ -26,16 +26,24 @@ const Dashboard = () => {
           </Link>
         </div>
 
-        {/* Data Visualization Placeholder */}
-        <div className="h-full bg-white rounded-lg shadow-lg p-6 text-[#736558]">
-          <h2 className="text-xl font-semibold">Data Visualization</h2>
-          <p>Insights into your health journey.</p>
+        {/* Data Visualization */}
+        <div className="h-full">
+          <Link href="/dashboard/visualization" passHref>
+            <button className="w-full h-full bg-white rounded-lg shadow-lg p-6 cursor-pointer hover:bg-[#f4e8de] transition-colors duration-300">
+              <h2 className="text-xl font-semibold">Data Visualization</h2>
+              <p>Insights into your health journey.</p>
+            </button>
+          </Link>
         </div>
 
-        {/* Recommendations Placeholder */}
-        <div className="h-full bg-white rounded-lg shadow-lg p-6 text-[#736558]">
-          <h2 className="text-xl font-semibold">Recommendations</h2>
-          <p>Personalized advice for you.</p>
+        {/* Recommendations */}
+        <div className="h-full">
+          <Link href="/dashboard/recommendations" passHref>
+            <button className="w-full h-full bg-white rounded-lg shadow-lg p-6 cursor-pointer hover:bg-[#f4e8de] transition-colors duration-300">
+              <h2 className="text-xl font-semibold">Recommendations</h2>
+              <p>Personalized food recipe and muscle training method recommendations.</p>
+            </button>
+          </Link>
         </div>
       </div>
     </div>
