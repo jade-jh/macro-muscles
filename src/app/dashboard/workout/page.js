@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 
-
 function WorkoutLogPage() {
     // State to manage the selected exercise and custom exercise input
     const [selectedExercise, setSelectedExercise] = useState('');
