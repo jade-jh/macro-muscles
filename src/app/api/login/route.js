@@ -5,7 +5,7 @@ import { getJwtSecretKey } from "@/libs/auth";
 export async function POST(request) {
   const body = await request.json();
   console.log("POST", body);
-  if (body.username === "admin" && body.password === "admin") {
+  if (body.username === "claire" && body.password === "12345") {
     const token = await new SignJWT({
       username: body.username,
     })
