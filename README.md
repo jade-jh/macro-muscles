@@ -1,38 +1,28 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/3e23_jye)
+# **Macro Muscles** #
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## **What is Macro Muscles?** ##
+Macro Muscles is a web application designed to help users achieve their fitness and nutrition goals. It combines workout tracking and meal logging in one user-friendly interface. Users can create profiles, log workouts, meals, check calorie and macronutrient information in different foods, and receive recommendations for specific muscle groups.
 
-## Getting Started
+## **Why the project is useful:** ##
+This project is useful for individuals who aim to improve their fitness and nutrition but find it intimidating to start. By providing a comprehensive platform for tracking workouts and meals, users can better understand their progress and make informed decisions about their health.
 
-First, run the development server:
+## **How users can get started with the project:** ##
+Users can get started by creating a profile and logging into the application. From there, they can begin logging their workouts and meals, exploring recommendations, and visualizing their progress through interactive graphs.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## **Where users can get help with this project:** ##
+Users can get help with the project through online documentation and direct contact with the project team via GitHub.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## **Technical Architecture** ##
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<img width="535" alt="technical_architecture" src="https://github.com/CS222-UIUC-SP24/group-project-team-74/assets/66847563/f7786e5e-7ef2-4039-8f31-00b97d1439d5">
 
-## Learn More
+## **Maintainers and Contributors:** ##
+The Macro Muscles project is maintained and contributed to by Team #74, comprising the following members:
 
-To learn more about Next.js, take a look at the following resources:
+* **Runzhao Hu**: Worked on overall routing functionality and nutrition/recommendation APIs
+* **Claire Tan**: Worked on user authentication
+* **Harshita Thota**: Worked on database implementation
+* **Jade Huang**: Worked on workout-/meal-logging functionality and MongoDB connection
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This collaborative team works together to develop, test, and enhance the application's features and functionality, ensuring a seamless user experience for all.
