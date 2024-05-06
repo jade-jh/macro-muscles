@@ -15,8 +15,9 @@ Users can get help with the project through online documentation and direct cont
 **Maintainers and Contributors:**
 The Macro Muscles project is maintained and contributed to by Team #74, comprising the following members:
 
-Runzhao Hu (runzhao3) 
-Claire Tan (ctan32)
-Harshita Thota (hthota3)
-Jade Huang (jadejh2)
+* **Runzhao Hu**: Worked on overall routing functionality and nutrition/recommendation APIs
+* **Claire Tan**: Worked on user authentication
+* **Harshita Thota**: Worked on database implementation
+* **Jade Huang**: Worked on workout-/meal-logging functionality and MongoDB connection
+
 This collaborative team works together to develop, test, and enhance the application's features and functionality, ensuring a seamless user experience for all.
