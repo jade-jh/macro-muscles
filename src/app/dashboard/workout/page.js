@@ -11,6 +11,7 @@ function WorkoutLogPage() {
     const [duration, setDuration] = useState('');
     const [workoutDate, setWorkoutDate] = useState('');
     const [workoutNotes, setWorkoutNotes] = useState('');
+    const [caloriesBurned, setCaloriesBurned] = useState(0); // New state for calories burned
 
     // State to hold all entries
     const [entries, setEntries] = useState([]);
@@ -19,6 +20,26 @@ function WorkoutLogPage() {
         // Fetch logged workouts when component mounts
         fetchLoggedWorkouts();
     }, []);
+
+    // Function to calculate calories burned
+    const calculateCaloriesBurned = async () => {
+        try {
+            // Make API call to calculate calories burned
+            const response = await fetch(`/api/calculate-burned?exercise=${exercise}&intensity=${intensity}&duration=${duration}`);
+            if (!response.ok) {
+                throw new Error('Failed to calculate calories burned');
+            }
+            const data = await response.json();
+            setCaloriesBurned(data.caloriesBurned);
+        } catch (error) {
+            console.error('Error calculating calories burned: ', error);
+        }
+    };
+
+    useEffect(() => {
+        // Recalculate calories burned whenever exercise, intensity, or duration changes
+        calculateCaloriesBurned();
+    }, [exercise, intensity, duration]);
 
     const fetchLoggedWorkouts = async () => {
         try {
@@ -84,8 +105,6 @@ function WorkoutLogPage() {
       }
     };
 
-    
-
     return (
         <div className="min-h-screen flex flex-col items-center py-8 bg-[#f4e8de]">
             <h2 className="text-2xl font-bold text-[#736558] mb-4">Workout Log</h2>
@@ -142,6 +161,11 @@ function WorkoutLogPage() {
                     <div>
                         <label htmlFor="duration" className="text-gray-700 font-semibold">Duration (minutes)</label>
                         <input type="number" id="duration" placeholder="Duration in minutes" value={duration} onChange={(e) => setDuration(e.target.value)} className="mt-1 w-full p-2 border border-gray-300 rounded-md" />
+                    </div>
+                    {/* Display calculated calories burned */}
+                    <div>
+                        <label htmlFor="caloriesBurned" className="text-gray-700 font-semibold">Calories Burned</label>
+                        <input type="text" id="caloriesBurned" value={caloriesBurned} disabled className="mt-1 w-full p-2 border border-gray-300 rounded-md" />
                     </div>
                     <div>
                         <label htmlFor="date" className="text-gray-700 font-semibold">Date</label>
