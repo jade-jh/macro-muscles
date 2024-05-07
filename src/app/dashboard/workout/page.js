@@ -69,6 +69,23 @@ function WorkoutLogPage() {
         }
     };
 
+    const handleClearLog = async () => {
+      try {
+        const response = await fetch('/api/get-workouts', {
+          method: 'DELETE',
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to clear log');
+        }
+        setEntries([]);
+      } catch (error) {
+        console.error('Error clearing log: ', error);
+      }
+    };
+
+    
+
     return (
         <div className="min-h-screen flex flex-col items-center py-8 bg-[#f4e8de]">
             <h2 className="text-2xl font-bold text-[#736558] mb-4">Workout Log</h2>
@@ -137,6 +154,13 @@ function WorkoutLogPage() {
                     <button type="submit" className="w-full p-2 bg-[#736558] text-white rounded-md hover:bg-[#715f4e]">Log Workout</button>
                 </form>
             </div>
+
+            <button
+        onClick={handleClearLog}
+        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mt-4"
+      >
+        Clear Log
+      </button>
 
             {/* Placeholder for workout entries list */}
             <div className="mt-8 w-full max-w-md">

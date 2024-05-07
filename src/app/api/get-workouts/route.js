@@ -15,3 +15,16 @@ export async function GET(request) {
     return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }
+
+export async function DELETE(request) {
+  try {
+    const client = await connectToDatabase();
+    const db = client.db();
+    await db.collection('workouts').deleteMany({});
+
+    return NextResponse.json({ message: 'Successfully cleared workouts collection' }, { status: 200 });
+  } catch (error) {
+    console.error('Error clearing workouts collection:', error);
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+  }
+}

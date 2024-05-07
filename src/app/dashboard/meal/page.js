@@ -60,6 +60,20 @@ function MealLogPage() {
     }
   };
 
+  const handleClearLog = async () => {
+    try {
+      const response = await fetch('/api/get-meals', {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to clear log');
+      }
+      setEntries([]);
+    } catch (error) {
+      console.error('Error clearing log: ', error);
+    }
+  };
 
   const addFoodItem = () => {
     const newFoodItem = {
@@ -253,6 +267,13 @@ function MealLogPage() {
           </button>
         </form>
       </div>
+
+      <button
+        onClick={handleClearLog}
+        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mt-4"
+      >
+        Clear Log
+      </button>
 
       {/* Placeholder for meal entries list */}
       <div className="mt-8 w-full max-w-md">
