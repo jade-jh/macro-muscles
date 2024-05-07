@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function MealLogPage() {
   const [mealCategory, setMealCategory] = useState('');
@@ -7,24 +7,35 @@ function MealLogPage() {
   const [mealDate, setMealDate] = useState('');
   const [mealNotes, setMealNotes] = useState('');
   const [foodItems, setFoodItems] = useState([]);
-  const [entries, setEntries] = useState([]); // State to hold all entries
+  const [entries, setEntries] = useState([]);
 
-  const handleSubmit = async(e) => {
+  useEffect(() => {
+    fetchLoggedMeals();
+  }, []);
+
+  const fetchLoggedMeals = async () => {
+    try {
+      const response = await fetch('/api/get-meals');
+      if (!response.ok) {
+        throw new Error('Failed to fetch meals');
+      }
+      const data = await response.json();
+      setEntries(data.meals);
+    } catch (error) {
+      console.error('Error fetching meals: ', error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Meal Category:', mealCategory);
-    console.log('Calories:', calories);
-    console.log('Meal Date:', mealDate);
-    console.log('Meal Notes:', mealNotes);
-    console.log('Food Items:', foodItems);
 
     try {
       const response = await fetch('/api/submit-meal', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({mealCategory, foodItems, calories, mealDate, mealNotes})
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mealCategory, foodItems, calories, mealDate, mealNotes })
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to log meal');
       }
@@ -38,8 +49,7 @@ function MealLogPage() {
       };
 
       setEntries([...entries, newEntry]);
-      
-      // Clear input fields after submission
+
       setMealCategory('');
       setCalories('');
       setMealDate('');
@@ -47,9 +57,9 @@ function MealLogPage() {
       setFoodItems([]);
     } catch (error) {
       console.error('Error logging meal: ', error);
-      setError('Failed to log meal.');
     }
   };
+
 
   const addFoodItem = () => {
     const newFoodItem = {
@@ -247,14 +257,6 @@ function MealLogPage() {
       {/* Placeholder for meal entries list */}
       <div className="mt-8 w-full max-w-md">
         <h3 className="text-xl text-[#736558] font-semibold mb-2">Previous Entries</h3>
-        {/* Mock entry */}
-        <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-          <h4 className="text-gray-800 font-semibold">Lunch</h4>
-          <p className="text-gray-600">Calories: 600</p>
-          <p className="text-gray-600">Date: 2023-03-15</p>
-          <p className="text-gray-600">Notes: Felt energized after eating.</p>
-        </div>
-        {/* Repeat for more entries */}
       {entries.map((entry, index) => (
         <div key={index} className="bg-white rounded-lg shadow-md p-4 mb-4">
           <h4 className="text-gray-800 font-semibold">{entry.mealCategory}</h4>
