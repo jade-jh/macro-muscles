@@ -78,7 +78,9 @@ function CalorieVisualization() {
     return (
         <div className="flex flex-col items-center justify-between p-24">
             <h2 className="text-6xl font-bold text-white italic drop-shadow-2xl">Calorie Visualization</h2>
+            <div className="px-60 pt-9">
             <canvas id="calorieChart"></canvas>
+            </div>
         </div>
     );
 }
